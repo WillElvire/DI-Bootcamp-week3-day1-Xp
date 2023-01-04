@@ -7,7 +7,7 @@
 
 let userElement = document.getElementsByTagName("div")[0];
 let elementList = document.getElementsByTagName("ul")[0];
-let children   = elementList.children;
+let children    = elementList.children;
 
 userElement.style.backgroundColor = "blue";
 userElement.style.padding = "20px";

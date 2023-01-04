@@ -1,8 +1,24 @@
+/**
+ * @author : Wilfried koua
+ * @description : Master dom element using dom elements
+ * @param allBooks : Object
+ * @param listBooks : HTMLElement
+ * @param table     : HTMLElement
+ * @param tblBody   : HTMLElement
+ * @param tableHead : Array
+ * @param row       : HTMLElement
+ * @param cell      : HTMLElement
+ * @param cellText  : HTMLElement
+ * @param row2      : HTMLElement
+ */
+
+/******************** EXERCICE 4 ****************/
+
 let allBooks = [
   {
     title  : "Reflechissez et devenez riche",
     author : "Napoleon hill",
-    image  :  "https://images-na.ssl-images-amazon.com/images/I/41uxaJSJ7iL._SX307_BO1,204,203,200_.jpg+",
+    image  :  "https://bibliotheque-du-bien-etre-et-du-succes.com/wp-content/uploads/2021/05/Reflechissez-et-devenez-riche_3.jpg",
     alreadyRead: true,
   },
   {
@@ -17,39 +33,56 @@ let listBooks  = document.querySelector(".listBooks");
 let table      = document.createElement("table");
 let tblBody    = document.createElement("tbody");
 let tblHead    = document.createElement("thead");
-let tableHead   = ["title","author","image","alreadyRead"];
+let tableHead  = ["title","author","image","alreadyRead"];
 let row;
 let cel;
 let cellText;
+let row2 ;
 
-for (let i = 0; i < 4; i++) {
+row = document.createElement("tr");
 
-    row      = document.createElement("tr");
-    cell     = document.createElement("th");
-    cellText = document.createTextNode(tableHead[i]);
-    
-    cell.appendChild(cellText);
-    row.appendChild(cell);
-    tblHead.appendChild(row);
+for (let i = 0; i < tableHead.length; i++) {
+  
+  cell     = document.createElement("th");
+  cellText = document.createTextNode(tableHead[i]);
+  
+  cell.appendChild(cellText);
+  row.appendChild(cell);
+  tblHead.appendChild(row);
 }
 
 
 for(let book of allBooks) {
 
-    row  = document.createElement("tr");
+  row2 = document.createElement("tr");
+
+  for(let i = 0 ; i < tableHead.length ; i++) {
+
     cell = document.createElement("td");
 
-    cell.appendChild(document.createTextNode(book.title));
-    row.appendChild(cell);
-    cell.appendChild(document.createTextNode(book.author));
-    row.appendChild(cell);
-    cell.appendChild(document.createTextNode(book.image));
-    row.appendChild(cell);
-    tblBody.appendChild(row);
+    if(tableHead[i] == "image"){
+
+      const image = document.createElement('img');
+      image.setAttribute("src",book[tableHead[i]]);
+      image.setAttribute("width",100);
+      image.setAttribute("height",100);
+      cell.appendChild(image);
+
+    }
+    else{
+      cell.appendChild(document.createTextNode(book[tableHead[i]] != undefined ? book[tableHead[i]] : " ** " ));
+    }
+    row2.appendChild(cell);
+  }
+
+  row2.style.background  = book.alreadyRead ? "forestgreen" : "red";
+  row2.style.color       = "white",
+  
+  tblBody.appendChild(row2);
 }
 
 
 table.appendChild(tblHead);
 table.appendChild(tblBody);
 listBooks.appendChild(table);
-table.setAttribute("border", "2");
+table.setAttribute("border", "1");
